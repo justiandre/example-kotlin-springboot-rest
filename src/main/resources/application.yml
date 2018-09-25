@@ -20,11 +20,12 @@ spring:
 logging:
   level:
     org:
-      tech.justiandre: INFO
-      tech.justi.example.kotlin.springboot.rest.exception.ValidationException: OFF
       apache.http: INFO
       springframework: INFO
       spring: INFO
       hibernate:
         SQL: DEBUG
         type.descriptor.sql.BasicBinder: TRACE
+    com:
+      andrejusti: INFO
+      andrejusti.example.kotlin.springboot.rest.exception.ValidationException: OFF

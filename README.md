@@ -93,24 +93,24 @@ docker run -d -p 8080:8080 justiandre/example-kotlin-springboot-rest:master
 ## Log ao iniciar a aplicação.
 
 ```shell
-+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
-+                          __             __                  __              +
-+      __                 /\ \__  __     /\ \__              /\ \             +
-+     /\_\  __  __    ____\ \ ,_\/\_\    \ \ ,_\    __    ___\ \ \___         +
-+     \/\ \/\ \/\ \  /',__\\ \ \/\/\ \    \ \ \/  /'__`\ /'___\ \  _ `\       +
-+      \ \ \ \ \_\ \/\__, `\\ \ \_\ \ \  __\ \ \_/\  __//\ \__/\ \ \ \ \      +
-+      _\ \ \ \____/\/\____/ \ \__\\ \_\/\_\\ \__\ \____\ \____\\ \_\ \_\     +
-+     /\ \_\ \/___/  \/___/   \/__/ \/_/\/_/ \/__/\/____/\/____/ \/_/\/_/     +
-+     \ \____/                                                                +
-+      \/___/                                                                 +
-+                                                                             +
-+   App de exemplo: Kotlin + Spring Boot + Rest                            +
-+   https://github.com/justiandre/example-kotlin-springboot-rest           +
-+   Por: André Justi <justi.andre@gmail.com> - http://justi.tech              +
-+                                                                             +
-+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
 
-
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ +                      __                                    __                                             +
+ +                     /\ \                __                /\ \__  __                                      +
+ +      __      ___    \_\ \  _ __    __  /\_\  __  __    ___\ \ ,_\/\_\        ___    ___     ___ ___       +
+ +    /'__`\  /' _ `\  /'_` \/\`'__\/'__`\\/\ \/\ \/\ \  /',__\ \ \/\/\ \      /'___\ / __`\ /' __` __`\     +
+ +   /\ \L\.\_/\ \/\ \/\ \L\ \ \ \//\  __/ \ \ \ \ \_\ \/\__, `\ \ \_\ \ \  __/\ \__//\ \L\ \/\ \/\ \/\ \    +
+ +   \ \__/.\_\ \_\ \_\ \___,_\ \_\\ \____\_\ \ \ \____/\/\____/\ \__\\ \_\/\_\ \____\ \____/\ \_\ \_\ \_\   +
+ +    \/__/\/_/\/_/\/_/\/__,_ /\/_/ \/____/\ \_\ \/___/  \/___/  \/__/ \/_/\/_/\/____/\/___/  \/_/\/_/\/_/   +
+ +                                        \ \____/                                                           +
+ +                                         \/___/                                                            +
+ +                                                                                                           +
+ +     App de exemplo: Kotlin + Spring Boot + rest                                                           +
+ +     https://github.com/justiandre/example-kotlin-springboot-rest                                          +
+ +     Por: André Justi <justi.andre@gmail.com> - http://andrejusti.com                                      +
+ +                                                                                                           +
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ 
 $datetime  INFO --- [           main] t.j.e.k.s.rest.ApplicationKt          : Starting ApplicationKt on 108c4239b213 with PID 7 (/data/app.jar started by root in /data)
 $datetime  INFO --- [           main] t.j.e.k.s.rest.ApplicationKt          : The following profiles are active: default
 $datetime  INFO --- [           main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@32eebfca: startup date [Sun Sep 16 23:44:27 GMT 2018]; root of context hierarchy
