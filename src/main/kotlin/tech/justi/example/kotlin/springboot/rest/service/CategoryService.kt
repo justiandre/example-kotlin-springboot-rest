@@ -49,7 +49,7 @@ class CategoryService(
 
     private fun validateSave(category: Category) = validationService.apply {
         addIfItemConditionIsTrue(StringUtils.isBlank(category.name), ITEM_VALIDATION_LOCATION_CATEGORY_NAME, ValidateService.ITEM_VALIDATION_ERROR_TYPE_REQUIRED)
-        addIfItemConditionIsTrueAndNotHasError({ StringUtils.length(category.name) > CATEGORY_NAME_MAX_SIZE }, ITEM_VALIDATION_LOCATION_CATEGORY_NAME, ValidateService.ITEM_VALIDATION_ERROR_TYPE_MAX_SIZE)
+        addIfItemConditionIsTrueAndNotHasError({ StringUtils.length(category.name) > CATEGORY_NAME_MAX_SIZE }, ITEM_VALIDATION_LOCATION_CATEGORY_NAME, ValidateService.ITEM_VALIDATION_ERROR_TYPE_MAX_SIZE, listOf(CATEGORY_NAME_MAX_SIZE))
         addIfItemConditionIsTrueAndNotHasError({ isDuplicateCategory(category) }, ITEM_VALIDATION_LOCATION_CATEGORY_NAME, ValidateService.ITEM_VALIDATION_ERROR_TYPE_DUPLICATE)
     }.validate()
 

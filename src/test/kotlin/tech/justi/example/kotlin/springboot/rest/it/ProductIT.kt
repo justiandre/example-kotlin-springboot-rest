@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import tech.justi.example.kotlin.springboot.rest.AbstractIT
 import tech.justi.example.kotlin.springboot.rest.clientapi.CategoryClientApi
 import tech.justi.example.kotlin.springboot.rest.clientapi.ProductClientApi
+import tech.justi.example.kotlin.springboot.rest.dto.Pagination
 import tech.justi.example.kotlin.springboot.rest.entity.Category
 import tech.justi.example.kotlin.springboot.rest.entity.Product
 import tech.justi.example.kotlin.springboot.rest.service.ProductService
 import tech.justi.example.kotlin.springboot.rest.service.ValidateService
+import kotlin.reflect.KFunction1
 
 class ProductIT : AbstractIT() {
 
@@ -20,6 +22,11 @@ class ProductIT : AbstractIT() {
 
     @Autowired
     lateinit var categoryClientApi: CategoryClientApi
+
+    @Test
+    fun `Search find all without informing pagination`() {
+        productClientApi.findAll(Pagination(), StringUtils.EMPTY)
+    }
 
     @Test
     fun `Search product by id without expecting result`() {
@@ -69,6 +76,16 @@ class ProductIT : AbstractIT() {
     @Test
     fun `Create product checking find all`() {
         assertCreateProduct(::findAllProductId)
+    }
+
+    @Test
+    fun `Create product with value null checking find by id`() {
+        assertCreateProductWithValueNull(productClientApi::findById)
+    }
+
+    @Test
+    fun `Create product with value null checking find all`() {
+        assertCreateProductWithValueNull(::findAllProductId)
     }
 
     @Test
@@ -178,11 +195,23 @@ class ProductIT : AbstractIT() {
 
     private fun assertCreateProduct(searchProduct: (Long) -> Product?): Product {
         val product = createAndSaveProduct()
+        return assertCreateProduct(product, searchProduct)
+    }
+
+    fun assertCreateProduct(product: Product, searchProduct: (Long) -> Product?): Product {
         val productId = product.id
         Assert.assertNotNull("Should return id", productId)
         val productSearch = searchProduct(productId!!)
         Assert.assertEquals("Product retrieved is different from saved", product, productSearch)
         return productSearch!!
+    }
+
+    fun assertCreateProductWithValueNull(searchProduct: KFunction1<@ParameterName(name = "productId") Long, Product?>) {
+        val product = createProduct().apply {
+            value = null
+            id = productClientApi.create(this)
+        }
+        assertCreateProduct(product, searchProduct)
     }
 
     private fun assertValidationExceptionProductNameNotBlack(product: Product, execValidationException: (Product) -> Unit) {

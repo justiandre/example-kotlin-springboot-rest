@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import tech.justi.example.kotlin.springboot.rest.AbstractIT
 import tech.justi.example.kotlin.springboot.rest.clientapi.CategoryClientApi
 import tech.justi.example.kotlin.springboot.rest.clientapi.ProductClientApi
+import tech.justi.example.kotlin.springboot.rest.dto.Pagination
 import tech.justi.example.kotlin.springboot.rest.entity.Category
 import tech.justi.example.kotlin.springboot.rest.entity.Product
 import tech.justi.example.kotlin.springboot.rest.service.CategoryService
@@ -22,10 +23,16 @@ class CategoryIT : AbstractIT() {
     lateinit var categoryClientApi: CategoryClientApi
 
     @Test
+    fun `Search find all without informing pagination`() {
+        categoryClientApi.findAll(Pagination())
+    }
+
+    @Test
     fun `Search category by id without expecting result`() {
         val category = categoryClientApi.findById(Int.MAX_VALUE.toLong())
         Assert.assertNull("Should not return findById", category)
     }
+
 
     @Test
     fun `Search categories without expecting result`() {
@@ -117,7 +124,7 @@ class CategoryIT : AbstractIT() {
         assertValidationExceptionCategoryNameMaxSize(createAndSaveCategory(), { categoryClientApi.edit(it) })
     }
 
-    private fun findAllCategoryId(categoryId: Long) = categoryClientApi.findAll(createPagination())?.records?.firstOrNull { it.id == categoryId }
+    private fun findAllCategoryId(categoryId: Long) = categoryClientApi.findAll(createPagination()).records?.firstOrNull { it.id == categoryId }
 
     private fun assertDeleteCategory(searchCategory: (Long) -> Category?) {
         val category = assertCreateCategory(searchCategory)

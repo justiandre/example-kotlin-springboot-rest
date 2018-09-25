@@ -40,11 +40,11 @@ abstract class AbstractClientApi {
             LinkedMultiValueMap<String, String>().apply {
                 pagination.page?.run { add(QUERY_PARAM_KEY_PAGINATION_PAGE, this.toString()) }
                 pagination.maxRecords?.run { add(QUERY_PARAM_KEY_PAGINATION_SIZE, this.toString()) }
-                others?.mapNotNull { add(it.key, it.value?.toString()) }
+                others?.mapNotNull { add(it.key, it.value.toString()) }
             }
 
     protected fun parseUriLocationId(uri: URI) =
-            StringUtils.substringAfterLast(uri.toString(), "/")?.let { it?.toLong() }
+            StringUtils.substringAfterLast(uri.toString(), "/")?.let { it.toLong() }
 
     private fun creteResponseErrorHandler() = object : DefaultResponseErrorHandler() {
         override fun handleError(response: ClientHttpResponse, statusCode: HttpStatus) {
@@ -52,7 +52,7 @@ abstract class AbstractClientApi {
                 super.handleError(response, statusCode)
                 return
             }
-            response.body?.use {
+            response.body.use {
                 val itemValidationError = objectMapperJson.reader().forType(object : TypeReference<List<ItemValidationError>>() {}).readValue<List<ItemValidationError>>(it)
                 throw ValidationException(itemValidationError)
             }

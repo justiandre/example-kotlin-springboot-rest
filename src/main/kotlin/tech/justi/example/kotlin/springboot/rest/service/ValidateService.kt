@@ -75,11 +75,6 @@ class ValidateService {
 
     private fun parseMessage(itemValidationError: ItemValidationError): String {
         val keyMessage = "${itemValidationError.errorLocation}.${itemValidationError.errorType}"
-        try {
-            return messageSource.getMessage(keyMessage, itemValidationError.context?.toTypedArray(), LocaleContextHolder.getLocale());
-        } catch (noSuchMessageException: NoSuchMessageException) {
-            logger.warn("Validation message not found: '$keyMessage'")
-            return keyMessage
-        }
+        return messageSource.getMessage(keyMessage, itemValidationError.context?.toTypedArray(), LocaleContextHolder.getLocale())
     }
 }

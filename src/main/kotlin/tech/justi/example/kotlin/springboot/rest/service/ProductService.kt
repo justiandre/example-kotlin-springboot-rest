@@ -54,11 +54,13 @@ class ProductService(
 
     private fun validateSave(product: Product) = validationService.apply {
         addIfItemConditionIsTrue(StringUtils.isBlank(product.name), ITEM_VALIDATION_LOCATION_PRODUCT_NAME, ValidateService.ITEM_VALIDATION_ERROR_TYPE_REQUIRED)
-        addIfItemConditionIsTrueAndNotHasError({ StringUtils.length(product.name) > PRODUCT_NAME_MAX_SIZE }, ITEM_VALIDATION_LOCATION_PRODUCT_NAME, ValidateService.ITEM_VALIDATION_ERROR_TYPE_MAX_SIZE)
+        addIfItemConditionIsTrueAndNotHasError({ StringUtils.length(product.name) > PRODUCT_NAME_MAX_SIZE }, ITEM_VALIDATION_LOCATION_PRODUCT_NAME, ValidateService.ITEM_VALIDATION_ERROR_TYPE_MAX_SIZE, listOf(PRODUCT_NAME_MAX_SIZE))
         addIfItemConditionIsTrueAndNotHasError({ isDuplicateProduct(product) }, ITEM_VALIDATION_LOCATION_PRODUCT_NAME, ValidateService.ITEM_VALIDATION_ERROR_TYPE_DUPLICATE)
-        addIfItemConditionIsTrue(StringUtils.length(product.description) > PRODUCT_DESCRIPTION_MAX_SIZE, ITEM_VALIDATION_LOCATION_PRODUCT_DESCRIPTION, ValidateService.ITEM_VALIDATION_ERROR_TYPE_MAX_SIZE)
-        addIfItemConditionIsTrue(product.value != null && product.value!! <= NumberUtils.DOUBLE_ZERO, ITEM_VALIDATION_LOCATION_PRODUCT_VALUE, ValidateService.ITEM_VALIDATION_ERROR_TYPE_NOT_NEGATIVE)
+        addIfItemConditionIsTrue(StringUtils.length(product.description) > PRODUCT_DESCRIPTION_MAX_SIZE, ITEM_VALIDATION_LOCATION_PRODUCT_DESCRIPTION, ValidateService.ITEM_VALIDATION_ERROR_TYPE_MAX_SIZE, listOf(PRODUCT_DESCRIPTION_MAX_SIZE))
         addIfItemConditionIsTrue(CollectionUtils.isEmpty(product.categories), ITEM_VALIDATION_LOCATION_PRODUCT_CATEGORY, ValidateService.ITEM_VALIDATION_ERROR_TYPE_REQUIRED)
+        product.value?.apply {
+            addIfItemConditionIsTrue(this <= NumberUtils.DOUBLE_ZERO, ITEM_VALIDATION_LOCATION_PRODUCT_VALUE, ValidateService.ITEM_VALIDATION_ERROR_TYPE_NOT_NEGATIVE)
+        }
     }.validate()
 
     fun isDuplicateProduct(product: Product) =

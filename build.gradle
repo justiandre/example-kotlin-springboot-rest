@@ -25,6 +25,9 @@ group = "tech.justi"
 version = "0.0.1-SNAPSHOT"
 sourceCompatibility = 1.8
 
+jacoco {
+    toolVersion = "0.8.2"
+}
 
 jacocoTestReport {
     group = "Reporting"
@@ -35,7 +38,7 @@ jacocoTestReport {
     }
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, excludes: ["**/dto/**", "**/entity/**", "**/*Application**"])
+            fileTree(dir: it, excludes: ["**/dto/**", "**/*Application**"])
         })
     }
 }

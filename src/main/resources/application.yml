@@ -11,6 +11,10 @@ spring:
     enabled: true
     path: /h2-console
   jpa.hibernate.ddl-auto: validate
+  messages:
+    fallback-to-system-locale: true
+    use-code-as-default-message: true
+    basename: messages, validation-messages
 
 # Configuração de log.
 logging:
