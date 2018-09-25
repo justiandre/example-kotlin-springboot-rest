@@ -1,0 +1,26 @@
+app:
+  search:
+    pagination:
+      numberRecords:
+        default: 10
+        max: 100
+
+spring:
+  application.name: exemplo-kotlin-springboot-rest
+  h2.console:
+    enabled: true
+    path: /h2-console
+  jpa.hibernate.ddl-auto: validate
+
+# Configuração de log.
+logging:
+  level:
+    org:
+      tech.justiandre: INFO
+      tech.justi.example.kotlin.springboot.rest.exception.ValidationException: OFF
+      apache.http: INFO
+      springframework: INFO
+      spring: INFO
+      hibernate:
+        SQL: DEBUG
+        type.descriptor.sql.BasicBinder: TRACE

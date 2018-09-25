@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: andrejusti
+      changes:
+        - createTable:
+            tableName: Category
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(70)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: Product
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(70)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(4000)
+              - column:
+                  name: value
+                  type: double
+        - createTable:
+            tableName: Product_Category
+            columns:
+              - column:
+                  name: product_id
+                  type: long
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category_id
+                  type: long
+                  constraints:
+                    nullable: false

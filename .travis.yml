@@ -1,0 +1,32 @@
+dist: trusty
+
+env:
+  - DOCKER_IMAGE_APP="justiandre/example-kotlin-springboot-rest:$TRAVIS_BRANCH"
+
+sudo: required
+
+language: kotlin
+
+jdk:
+- oraclejdk8
+
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
+
+services:
+  - docker
+
+addons:
+  sonarcloud:
+    organization: "justiandre-github"
+    
+script:
+  - ./gradlew clean build
+  - docker build -t $DOCKER_IMAGE_APP .
+  - docker login -u "$DOCKER_AUTH_USER" -p "$DOCKER_AUTH_PASS"
+  - docker push $DOCKER_IMAGE_APP
+  - sonar-scanner
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
